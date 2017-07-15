@@ -6,12 +6,12 @@ module V1
     def index
       @users = User.last(5)
 
-      render json: @users 
+      render json: @users, include: [:address], exception: [:updated_at, :created_at]
     end
 
     # GET /users/1
     def show
-      render json: @user, include: [:address 
+      render json: @user, include: [:address]
     end
 
     # POST /users
@@ -19,7 +19,7 @@ module V1
       @user = User.new(user_params)
 
       if @user.save
-        render json: @user, include: [:kind, :phones, :address],  status: :created, location: @user
+        render json: @user, include: [:address],  status: :created, location: @user
       else
         render json: @user.errors, status: :unprocessable_entity
       end
@@ -28,7 +28,7 @@ module V1
     # PATCH/PUT /users/1
     def update
       if @user.update(user_params)
-        render json: @user, include: [:kind, :phones, :address]
+        render json: @user, include: [:address]
       else
         render json: @user.errors, status: :unprocessable_entity
       end

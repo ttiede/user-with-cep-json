@@ -1,7 +1,7 @@
 class User < ApplicationRecord
 
   #Validations
-  validates_presence_of :address
+  #validates_presence_of :address
 
   # Kaminari
   paginates_per 5
