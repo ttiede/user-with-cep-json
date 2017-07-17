@@ -4,7 +4,7 @@ module V1
 
     # GET /users
     def index
-      @users = User.last(5)
+      @users = User.all
 
       render json: @users, include: [:address], exception: %i[updated_at created_at]
     end
