@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe V1::UsersController, type: :controller do
   describe 'GET #index' do
-    before(:each) do
+    before(:all) do
       User.destroy_all
 
       @user = User.new(name: 'Name', email: 'email@email.com')

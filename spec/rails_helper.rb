@@ -32,6 +32,17 @@ ActiveRecord::Migration.maintain_test_schema!
 RSpec.configure do |config|
   SimpleCov.start
 
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.around(:each) do |example|
+    DatabaseCleaner.cleaning do
+      example.run
+    end
+  end
+
   Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
