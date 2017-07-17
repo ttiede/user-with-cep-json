@@ -50,13 +50,13 @@ RSpec.describe V1::UsersController, type: :controller do
   describe "PUT 'update'" do
     it 'should be successful' do
       request.env['HTTP_ACCEPT'] = 'application/json'
-      post :update, params: {id: User.last.id,   user: { id: User.last.id ,name: 'name', email: 'email@mail.com', address_attributes: {id: User.last.address.id, zipcode: '18040010' } } }
+      post :update, params: { id: User.last.id, user: { id: User.last.id, name: 'name', email: 'email@mail.com', address_attributes: { id: User.last.address.id, zipcode: '18040010' } } }
       response.should be_success
     end
 
     it 'shouldn\'t be successful' do
       request.env['HTTP_ACCEPT'] = 'application/json'
-      post :update, params: {id: User.last.id,   user: { id: User.last.id ,name: 'name', email: 'email@mail.com', address_attributes: {id: User.last.address.id, zipcode: '18040011' } } }
+      post :update, params: { id: User.last.id, user: { id: User.last.id, name: 'name', email: 'email@mail.com', address_attributes: { id: User.last.address.id, zipcode: '18040011' } } }
       expect { raise StandardError }.to raise_error
     end
   end
@@ -64,27 +64,24 @@ RSpec.describe V1::UsersController, type: :controller do
   describe "DELETE 'delete'" do
     it 'should be successful' do
       request.env['HTTP_ACCEPT'] = 'application/json'
-      post :destroy, params: {id: User.last.id}
+      post :destroy, params: { id: User.last.id }
       response.should be_success
     end
-
   end
 
   describe "GET 'show'" do
     it 'should be successful' do
       request.env['HTTP_ACCEPT'] = 'application/json'
-      get :show, params: {id: User.last.id}
+      get :show, params: { id: User.last.id }
       response.should be_success
     end
 
     it 'should be successful' do
       request.env['HTTP_ACCEPT'] = 'application/json'
-      get :show, params: {id: User.last.id}
+      get :show, params: { id: User.last.id }
       response.should be_success
       user = JSON.parse(response.body)
-      user["name"] == "name"
+      user['name'] == 'name'
     end
-
-
   end
 end
