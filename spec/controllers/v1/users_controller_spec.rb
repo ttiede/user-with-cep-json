@@ -2,14 +2,13 @@ require 'rails_helper'
 
 RSpec.describe V1::UsersController, type: :controller do
   describe 'GET #index' do
-    before(:suite) do
+    before(:each) do
       User.destroy_all
-      2.times do
-        @user = User.new(name: 'Name', email: 'email@email.com')
-        @user.address = Address.new(zipcode: '18035520')
 
-        @user.save
-      end
+      @user = User.new(name: 'Name', email: 'email@email.com')
+      @user.address = Address.new(zipcode: '18035520')
+
+      @user.save
     end
 
     it 'sends a list of messages' do
@@ -18,7 +17,7 @@ RSpec.describe V1::UsersController, type: :controller do
       json = JSON.parse(response.body)
 
       expect(response).to be_success
-      expect(json.length).to eq(2)
+      expect(json.length).to eq(1)
     end
   end
 
@@ -68,6 +67,7 @@ RSpec.describe V1::UsersController, type: :controller do
       post :destroy, params: {id: User.last.id}
       response.should be_success
     end
+
   end
 
   describe "GET 'show'" do

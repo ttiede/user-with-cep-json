@@ -36,11 +36,8 @@ module V1
 
     # DELETE /users/1
     def destroy
-      if @user.destroy
-        render json: { payload: 'User has deleted' }
-      else
-        render json: { payload: "User with ID = #{@user.id} hasn't deleted" }, status: :unprocessable_entity
-      end
+      @user.destroy
+      render json: { payload: 'User has deleted' }
     end
 
     private
