@@ -2,8 +2,6 @@
 require 'spec_helper'
 require 'factory_girl'
 require 'simplecov'
-require 'database_cleaner'
-
 
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
