@@ -2,6 +2,8 @@
 require 'spec_helper'
 require 'factory_girl'
 require 'simplecov'
+require 'database_cleaner'
+
 
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
@@ -31,17 +33,6 @@ ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
   SimpleCov.start
-
-  config.before(:suite) do
-    DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.clean_with(:truncation)
-  end
-
-  config.around(:each) do |example|
-    DatabaseCleaner.cleaning do
-      example.run
-    end
-  end
 
   Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
